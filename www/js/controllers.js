@@ -14,19 +14,11 @@ angular.module('green-streak.controllers', [])
     .controller('OneController', function ($scope, LanguagesService) {
         $scope.navTitle = "Language Data by count";
 
-        $scope.exampleData = LanguagesService.all();
+        $scope.d3Data = LanguagesService.all();
 
-        $scope.xFunction = function(){
-            return function(d) {
-                return d.key;
-            };
-        }
-
-        $scope.yFunction = function(){
-            return function(d){
-                return d.y;
-            };
-        }
+        $scope.d3OnClick = function(item){
+            alert(item.name);
+        };
 
         $scope.leftButtons = [{
             type: 'button-icon icon ion-navicon',

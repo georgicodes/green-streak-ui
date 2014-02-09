@@ -21,10 +21,10 @@ angular.module('green-streak.services', [])
     .factory('LanguagesService', function () {
 
         var data = [
-            { key: 'Java', y: '5'},
-            { key: 'Scala', y: '2'},
-            { key: 'Matlab', y: '1'},
-            { key: 'Fortran', y: '11'}
+            { name: 'Java', count: '5'},
+            { name: 'Scala', count: '2'},
+            { name: 'Matlab', count: '1'},
+            { name: 'Fortran', count: '11'}
         ];
 
         return {

@@ -1,4 +1,10 @@
-var sideMenuApp = angular.module('green-streak', ['ionic', 'green-streak.controllers', 'green-streak.services', 'nvd3ChartDirectives']);
+var sideMenuApp = angular.module('green-streak', ['ionic', 'green-streak.controllers', 'green-streak.services', 'green-streak.directives']);
+
+// setup dependency injection
+angular.module('d3', []);
+angular.module('green-streak.controllers', []);
+angular.module('green-streak.services', []);
+angular.module('green-streak.directives', ['d3']);
 
 sideMenuApp.config(function ($compileProvider) {
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
