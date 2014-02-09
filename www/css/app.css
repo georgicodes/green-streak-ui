@@ -1,12 +1,6 @@
-#splash-page {
-  background-color: white;
+body {
+    font-family: 'Metrophobic', Arial, serif; font-weight: 400;
 }
-#logo {
-  background: url('../img/ionic.png') no-repeat transparent;
-  width: 128px;
-  height: 128px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  margin: -64px 0px 0px -64px;
-}
+/*text {*/
+    /*font-size: 16px;*/
+/*}*/

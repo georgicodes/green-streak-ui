@@ -11,8 +11,22 @@ angular.module('green-streak.controllers', [])
         };
     })
 
-    .controller('OneController', function ($scope) {
-        $scope.navTitle = "Page One Title";
+    .controller('OneController', function ($scope, LanguagesService) {
+        $scope.navTitle = "Language Data by count";
+
+        $scope.exampleData = LanguagesService.all();
+
+        $scope.xFunction = function(){
+            return function(d) {
+                return d.key;
+            };
+        }
+
+        $scope.yFunction = function(){
+            return function(d){
+                return d.y;
+            };
+        }
 
         $scope.leftButtons = [{
             type: 'button-icon icon ion-navicon',

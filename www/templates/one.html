@@ -2,7 +2,19 @@
       hide-back-button="true">
 
     <content has-header="true" padding="true">
-        <h2>1 {{navTitle}}</h2>
+        <h2>{{navTitle}}</h2>
+
+        <nvd3-pie-chart
+                data="exampleData"
+                id="exampleId"
+                width="550"
+                height="350"
+                x="xFunction()"
+                y="yFunction()"
+                showLabels="true"
+                sh>
+            <svg></svg>
+        </nvd3-pie-chart>
     </content>
 
 </view>
