@@ -17,7 +17,7 @@ angular.module('green-streak.controllers', [])
         $scope.d3Data = LanguagesService.all();
 
         $scope.d3OnClick = function(item){
-            alert(item.name);
+//            alert(item.name);
         };
 
         $scope.leftButtons = [{

@@ -1,4 +1,4 @@
-ionic-side-menu-with-navigation
+green-streak-ui
 ==========================
 
 ## Purpose
