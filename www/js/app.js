@@ -1,4 +1,4 @@
-var sideMenuApp = angular.module('sideMenuApp', ['ionic', 'sideMenuApp.controllers', 'sideMenuApp.services']);
+var sideMenuApp = angular.module('green-streak', ['ionic', 'green-streak.controllers', 'green-streak.services']);
 
 sideMenuApp.config(function ($compileProvider) {
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);

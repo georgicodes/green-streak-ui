@@ -1,4 +1,4 @@
-angular.module('sideMenuApp.controllers', [])
+angular.module('green-streak.controllers', [])
 
     .controller('MenuController', function ($scope, $location, MenuService) {
         // "MenuService" is a service returning mock data (services.js)
