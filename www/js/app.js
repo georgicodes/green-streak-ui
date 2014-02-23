@@ -5,6 +5,7 @@ angular.module('d3', []);
 angular.module('green-streak.controllers', []);
 angular.module('green-streak.services', []);
 angular.module('green-streak.directives', ['d3']);
+//angular.module('green-streak.configuration', []);
 
 sideMenuApp.config(function ($compileProvider) {
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
@@ -18,6 +19,16 @@ sideMenuApp.config(['$stateProvider', '$urlRouterProvider',
     // Each state's controller can be found in controllers.js
     $stateProvider
 
+        .state('authenticate', {
+            url: '/authenticate',
+            controller: 'AuthenticateController',
+            templateUrl: 'templates/authenticate.html'
+        })
+        .state('callback', {
+            url: '/callback',
+            controller: 'CallbackController',
+            templateUrl: 'templates/callback.html'
+        })
         .state('one', {
             url: '/one',
             controller: 'OneController',
@@ -35,6 +46,6 @@ sideMenuApp.config(['$stateProvider', '$urlRouterProvider',
         });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/one');
+    $urlRouterProvider.otherwise('/authenticate');
     }
 ])

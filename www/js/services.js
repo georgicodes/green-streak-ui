@@ -1,4 +1,4 @@
-angular.module('green-streak.services', [])
+angular.module('green-streak.services', ['ngResource'])
 
 /**
  * A simple example service that returns some data.
@@ -8,7 +8,8 @@ angular.module('green-streak.services', [])
         var menuItems = [
             { text: '1 Page One', iconClass: 'icon ion-map', link: 'one'},
             { text: '2 Page Two', iconClass: 'icon ion-gear-b', link: 'two'},
-            { text: '3 Page Three', iconClass: 'icon ion-star', link: 'three'}
+            { text: '3 Page Three', iconClass: 'icon ion-star', link: 'three'},
+            { text: 'Auth', iconClass: 'icon ion-star', link: 'authenticate'}
         ];
 
         return {
@@ -16,6 +17,19 @@ angular.module('green-streak.services', [])
                 return menuItems;
             }
         }
+    })
+
+    .factory('AuthService', function ($resource) {
+        return $resource(
+            "http://localhost:4567" + "/auth/:tokenId",
+            {tokenId: "@tokenId"}
+//            {
+//                authenticate: {
+//                    method: 'GET',
+//                    isArray: false
+//                }
+//            }
+        );
     })
 
     .factory('LanguagesService', function () {
