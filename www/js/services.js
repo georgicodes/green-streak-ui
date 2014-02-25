@@ -1,4 +1,4 @@
-angular.module('green-streak.services', ['ngResource'])
+angular.module('green-streak.services', ['ngResource', 'green-streak.configuration'])
 
 /**
  * A simple example service that returns some data.
@@ -19,16 +19,16 @@ angular.module('green-streak.services', ['ngResource'])
         }
     })
 
-    .factory('AuthService', function ($resource) {
+    .factory('AuthService', function ($resource, API_END_POINT) {
         return $resource(
-            "http://localhost:4567" + "/auth/:tokenId",
+            API_END_POINT + "/auth/:tokenId",
             {tokenId: "@tokenId"}
         );
     })
 
-    .factory('LanguageCountService', function ($resource) {
+    .factory('LanguageCountService', function ($resource, API_END_POINT) {
         return $resource(
-            "http://localhost:4567" + "/languages"
+            API_END_POINT + "/languages"
         );
     })
 

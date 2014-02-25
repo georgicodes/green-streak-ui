@@ -1,21 +1,21 @@
-var sideMenuApp = angular.module('green-streak', ['ionic', 'green-streak.controllers', 'green-streak.services', 'green-streak.directives']);
+var greenStreakApp = angular.module('green-streak', ['ionic', 'green-streak.controllers', 'green-streak.services', 'green-streak.directives']);
 
 // setup dependency injection
 angular.module('d3', []);
 angular.module('green-streak.controllers', []);
 angular.module('green-streak.services', []);
 angular.module('green-streak.directives', ['d3']);
-//angular.module('green-streak.configuration', []);
+angular.module('green-streak.configuration', []);
 
-sideMenuApp.config(function ($compileProvider) {
+greenStreakApp.config(function ($compileProvider) {
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
 })
 
-sideMenuApp.config(['$httpProvider', function($httpProvider) {
+greenStreakApp.config(['$httpProvider', function($httpProvider) {
     $httpProvider.defaults.withCredentials = true;
 }])
 
-sideMenuApp.config(['$stateProvider', '$urlRouterProvider',
+greenStreakApp.config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
     // Ionic uses AngularUI Router which uses the concept of states
     // Learn more here: https://github.com/angular-ui/ui-router
