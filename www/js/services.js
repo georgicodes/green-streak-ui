@@ -23,12 +23,12 @@ angular.module('green-streak.services', ['ngResource'])
         return $resource(
             "http://localhost:4567" + "/auth/:tokenId",
             {tokenId: "@tokenId"}
-//            {
-//                authenticate: {
-//                    method: 'GET',
-//                    isArray: false
-//                }
-//            }
+        );
+    })
+
+    .factory('LanguageCountService', function ($resource) {
+        return $resource(
+            "http://localhost:4567" + "/languages"
         );
     })
 

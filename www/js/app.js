@@ -11,6 +11,10 @@ sideMenuApp.config(function ($compileProvider) {
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
 })
 
+sideMenuApp.config(['$httpProvider', function($httpProvider) {
+    $httpProvider.defaults.withCredentials = true;
+}])
+
 sideMenuApp.config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
     // Ionic uses AngularUI Router which uses the concept of states
@@ -21,7 +25,7 @@ sideMenuApp.config(['$stateProvider', '$urlRouterProvider',
 
         .state('authenticate', {
             url: '/authenticate',
-            controller: 'AuthenticateController',
+            controller: 'IndexController',
             templateUrl: 'templates/authenticate.html'
         })
         .state('callback', {
