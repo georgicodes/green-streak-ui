@@ -195,22 +195,6 @@ angular.module('green-streak.directives', ['d3'])
                 onClick: "&"
             },
             link: function (scope, iElement, iAttrs) {
-                var date = [1, 2, 3, 4, 5, 6]
-                var count = [0, 5, 13, 2, 6, 7]
-
-                var colorList = ["#1e6823" , "#44a340", "#8cc665", "#d6e685", "#eeeeee"]
-                var colorList = ["#eeeeee", "#d6e685", "#8cc665", "#44a340", "#1e6823" , "#44a340"]
-                var colorNum = 5
-
-                var countLength = count.length
-                var latestCount = count[countLength - 1]
-                var maxCounts = d3.max(count)
-
-                //Make an SVG Container
-                var svg = d3.select(iElement[0])
-                    .append("svg")
-                    .attr("width", 200)
-                    .attr("height", 200);
 
                 // on window resize, re-render d3 canvas
                 window.onresize = function () {
@@ -228,16 +212,42 @@ angular.module('green-streak.directives', ['d3'])
                     return scope.render(newVals);
                 }, true);
 
+                var deviceWidth = window.innerWidth || document.body.clientWidth;
+                var deviceHeight= window.innerHeight || document.body.clientHeight;
+                var drawSize = d3.min([deviceWidth, deviceHeight])/2
+                var bufferWidth = (deviceWidth - drawSize)/2;
+                var bufferHeight = (deviceHeight - drawSize)/2;
+                console.log(deviceWidth)
+                console.log(deviceHeight)
+                console.log(drawSize)
+                console.log(bufferWidth)
+                console.log(bufferHeight)
+
+                var date = [1, 2, 3, 4, 5, 6]
+                var count = [0, 5, 13, 2, 6, 7]
+
+                var colorList = ["#eeeeee", "#d6e685", "#8cc665", "#44a340", "#1e6823" , "#44a340"]
+                var colorNum = 5
+
+                var countLength = count.length
+                var latestCount = count[countLength - 1]
+                var maxCounts = d3.max(count)
+
+                //Make an SVG Container
+                var svg = d3.select(iElement[0])
+                    .append("svg")
+                    .attr("width", deviceWidth)
+                    .attr("height", deviceHeight);
                 // define render function
                 scope.render = function (data) {
                     // remove all previous items before render
                     //svg.selectAll("*").remove();
                     //Draw the Rectangle
                     var rectangle = svg.append("rect")
-                        .attr("x", 10)
-                        .attr("y", 10)
-                        .attr("width", 100)
-                        .attr("height", 100)
+                        .attr("x", bufferWidth)
+                        .attr("y", bufferHeight)
+                        .attr("width", drawSize)
+                        .attr("height", drawSize)
                         .attr("fill", function (d) {
                             tmp = ((colorNum - 1) * latestCount / maxCounts)
                             tmp = d3.round(tmp)
