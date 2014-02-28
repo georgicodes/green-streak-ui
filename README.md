@@ -1,17 +1,14 @@
 green-streak-ui
 ==========================
 
-## Purpose
-The project has been forked from ionic-angular-cordova-seed. It contains a fully functional app that has a Side Menu
-with navigation.
-
-The aim of this project was to extend the functionality demonstrated [here](http://ionicframework
-.com/examples/side-menu/) by allowing navigation by clicking on the items within the side menu.
-
-The project is well structured and contains app.js, controllers.js and services.js files.
-
-Changes have only been made to /templates, index.html and app.js, controllers.js and services.js. Everything else
-remains the same as the ionic-angular-cordova-seed project.
+#PhoneGap
+Install the following plugins
+```
+$ phonegap local plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-console.git
+$ cordova plugin add org.apache.cordova.inappbrowser
+$ cordova plugin add org.apache.cordova.statusbar
+$ cordova plugin add org.apache.cordova.network-information
+```
 
 ## Running the app
 For development purposes it's easiest to run with: 
