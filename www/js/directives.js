@@ -206,28 +206,22 @@ angular.module('green-streak.directives', ['d3'])
                         return scope.render(scope.data);
                     }
                 );
-
                 // watch for data changes and re-render
                 scope.$watch('data', function (newVals, oldVals) {
                     return scope.render(newVals);
                 }, true);
-
                 var deviceWidth = window.innerWidth || document.body.clientWidth;
                 var deviceHeight= window.innerHeight || document.body.clientHeight;
                 var drawSize = d3.min([deviceWidth, deviceHeight])/2;
                 var bufferWidth = (deviceWidth - drawSize)/2;
                 var bufferHeight = (deviceHeight - drawSize)/2;
-
                 var date = [1, 2, 3, 4, 5, 6]
                 var count = [0, 5, 13, 2, 6, 7]
-
                 var colorList = ["#eeeeee", "#d6e685", "#8cc665", "#44a340", "#1e6823" , "#44a340"]
                 var colorNum = 5
-
                 var countLength = count.length
                 var latestCount = count[countLength - 1]
                 var maxCounts = d3.max(count)
-
                 //Make an SVG Container
                 var svg = d3.select(iElement[0])
                     .append("svg")
@@ -259,8 +253,6 @@ angular.module('green-streak.directives', ['d3'])
                         .attr("y", bufferHeight)
                         .attr("width", drawSize)
                         .attr("height", drawSize);
-
-
                 };
             }
         };
