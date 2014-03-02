@@ -5,10 +5,10 @@ angular.module('green-streak.services', ['ngResource', 'green-streak.configurati
     .factory('MenuService', function () {
 
         var menuItems = [
-            { text: '1 Page One', iconClass: 'icon ion-map', link: 'one'},
-            { text: '2 Page Two', iconClass: 'icon ion-gear-b', link: 'two'},
-            { text: '3 Page Three', iconClass: 'icon ion-star', link: 'three'},
-            { text: 'Auth', iconClass: 'icon ion-star', link: 'authenticate'}
+            { text: 'Search', iconClass: 'icon ion-android-search', link: 'search'},
+            { text: 'Square', iconClass: 'icon ion-android-friends', link: 'square'},
+//            { text: '3 Page Three', iconClass: 'icon ion-star', link: 'three'},
+//            { text: 'Auth', iconClass: 'icon ion-star', link: 'authenticate'}
         ];
 
         return {

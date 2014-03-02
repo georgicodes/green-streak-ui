@@ -86,6 +86,9 @@ angular.module('green-streak.controllers', ['LocalStorageModule'])
             $scope.contributionData = result;
         });
 
+        $scope.deviceWidth = window.innerWidth || document.body.clientWidth;
+        $scope.deviceHeight= window.innerHeight || document.body.clientHeight;
+
         $scope.leftButtons = [
             {
                 type: 'button-icon icon ion-navicon',
