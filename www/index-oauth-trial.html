@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport"
+          content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>
+    <title>Hello World</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+
+    <script>
+        var fbapi = {
+            authorize: function (options) {
+
+                var deferred = $.Deferred();
+
+                //Build the OAuth consent page URL
+//                var authUrl = 'https://github.com/login/oauth/authorize?scope=user,public_repo&client_id=e453fc1e94a8b66b5cfa?' + $.param({
+//                    client_id: options.client_id,
+//                    redirect_uri: options.redirect_uri
+//                });
+                var authUrl = 'https://github.com/login/oauth/authorize?scope=user,public_repo&client_id=e453fc1e94a8b66b5cfa';
+
+                console.log('about to open InAppBrowser with URL: ' + authUrl);
+
+                //Open the OAuth consent page in the InAppBrowser
+                var authWindow = window.open(authUrl, '_blank', 'location=no,toolbar=no');
+
+                $(authWindow).on('loadstart', function (e) {
+                    var url = e.originalEvent.url;
+
+                    console.log('InAppBrowser: loadstart event has fired with url: ' + url);
+
+                    var code = /\?code=(.+)$/.exec(url);
+                    var error = /\?error=(.+)$/.exec(url);
+
+                    if (code || error) {
+                        //Always close the browser when match is found
+                        authWindow.close();
+                    }
+
+                    if (code) {
+                        console.log("code")
+                        deferred.resolve("code")
+                        //Exchange the authorization code for an access token
+//                            $.post('https://graph.facebook.com/oauth/access_token', {
+//                                code: code[1],
+//                                client_id: options.client_id,
+//                                client_secret: options.client_secret,
+//                                redirect_uri: options.redirect_uri
+//                            }).done(function (data) {
+//                                        deferred.resolve(data);
+//                                    }).fail(function (response) {
+//                                        deferred.reject(response.responseJSON);
+//                                    });
+                    } else if (error) {
+                        console.log("error")
+                        deferred.reject()
+                        //The user denied access to the app
+//                            deferred.reject({
+//                                error: error[1]
+//                            });
+                    }
+                });
+
+                return deferred.promise();
+            }
+//                ,
+//
+//                profile: function (access_token) {
+//                    var deferred = $.Deferred();
+//
+//                    //Build the OAuth consent page URL
+//                    var profile_uri = 'https://graph.facebook.com/me?' + access_token;
+//
+//                    console.log('about to fetch facebook profile: ' + profile_uri);
+//
+//                    $.getJSON(profile_uri)
+//                            .done(function (data) {
+//                                deferred.resolve(data);
+//                            }).fail(function (response) {
+//                                deferred.reject(response.responseJSON);
+//                            });
+//
+//                    return deferred.promise();
+//                }
+        };
+
+        $(document).on('deviceready', function () {
+
+            //enable cross site script
+            jQuery.support.cors = true;
+
+            var $loginButton = $('#login');
+            var $loginStatus = $('#status');
+
+            $loginButton.on('click', function () {
+
+                $.when(fbapi.authorize({
+                            client_id: 'e453fc1e94a8b66b5cfa',
+                            redirect_uri: 'http://localhost/'
+                        }))
+                        .then(function (access_token) {
+                            console.log('Executing then callback with access token: ' + access_token);
+                        });
+            });
+        });
+
+        $( document ).ready(function() {
+            //enable cross site script
+            jQuery.support.cors = true;
+
+            var $loginButton = $('#login');
+            var $loginStatus = $('#status');
+
+            $loginButton.on('click', function () {
+
+                $.when(fbapi.authorize({
+                            client_id: 'e453fc1e94a8b66b5cfa',
+                            redirect_uri: 'http://localhost/'
+                        }))
+                        .then(function (access_token) {
+                            console.log('Executing then callback with access token: ' + access_token);
+                        });
+            });
+        });
+
+    </script>
+</head>
+<body>
+<div class="app">
+    <a id="login" href="#">Login</a>
+
+    <p id="status"></p>
+</div>
+<script type="text/javascript" src="phonegap.js"></script>
+<!--<script type="text/javascript" src="js/index.js"></script>-->
+<!--<script type="text/javascript">-->
+<!--app.initialize();-->
+<!--//        </script>-->
+</body>
+</html>

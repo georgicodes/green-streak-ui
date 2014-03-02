@@ -4,14 +4,15 @@ angular.module('green-streak.controllers', ['LocalStorageModule'])
         // "MenuService" is a service returning mock data (services.js)
         $scope.list = MenuService.all();
 
-        $scope.goTo = function(page) {
+        $scope.goTo = function (page) {
             console.log('Going to ' + page);
             $scope.sideMenuController.toggleLeft();
             $location.url('/' + page);
         };
     })
 
-    .controller('IndexController', function ($scope, $state, localStorageService) {
+    .controller('IndexController', function ($scope, $ionicPlatform, $state, localStorageService) {
+
 //        var authenticated = localStorageService.get('authenticated');
 //        if (authenticated)
 //        {
@@ -19,26 +20,28 @@ angular.module('green-streak.controllers', ['LocalStorageModule'])
 //        }
         $scope.navTitle = "Authenticate";
 
-        $scope.leftButtons = [{
-            type: 'button-icon icon ion-navicon',
-            tap: function(e) {
-                $scope.sideMenuController.toggleLeft();
+        $scope.leftButtons = [
+            {
+                type: 'button-icon icon ion-navicon',
+                tap: function (e) {
+                    $scope.sideMenuController.toggleLeft();
+                }
             }
-        }];
+        ];
 
         $scope.rightButtons = [];
     })
 
-    .controller("CallbackController", function($scope, $location, $state, AuthService, localStorageService) {
+    .controller("CallbackController", function ($scope, $location, $state, AuthService, localStorageService) {
         $scope.currentURL = $location.absUrl();
         var paramPartOfURL = $scope.currentURL.slice($scope.currentURL.indexOf('code=') + 5);
         var indexOfSlash = paramPartOfURL.indexOf('/');
-        var oAuthCode =  paramPartOfURL.slice(0, indexOfSlash)
+        var oAuthCode = paramPartOfURL.slice(0, indexOfSlash)
 
-        AuthService.get({'tokenId': oAuthCode}, function(success) {
+        AuthService.get({'tokenId': oAuthCode}, function (success) {
             localStorageService.add("authenticated", true);
             $state.go('one');
-        }, function(error) {  // error callback
+        }, function (error) {  // error callback
             localStorageService.remove("authenticated");
         });
     })
@@ -48,29 +51,33 @@ angular.module('green-streak.controllers', ['LocalStorageModule'])
 
         $scope.d3Data = LanguageCountService.query();
 
-        $scope.d3OnClick = function(item){
+        $scope.d3OnClick = function (item) {
 //            alert(item.name);
         };
 
-        $scope.leftButtons = [{
-            type: 'button-icon icon ion-navicon',
-            tap: function(e) {
-                $scope.sideMenuController.toggleLeft();
+        $scope.leftButtons = [
+            {
+                type: 'button-icon icon ion-navicon',
+                tap: function (e) {
+                    $scope.sideMenuController.toggleLeft();
+                }
             }
-        }];
+        ];
 
         $scope.rightButtons = [];
     })
 
-    .controller('TwoController', function ($scope) {
-        $scope.navTitle = "Page Two Title";
+    .controller('SquareController', function ($scope) {
+        $scope.navTitle = "Daily Contribution";
 
-        $scope.leftButtons = [{
-            type: 'button-icon icon ion-navicon',
-            tap: function(e) {
-                $scope.sideMenuController.toggleLeft();
+        $scope.leftButtons = [
+            {
+                type: 'button-icon icon ion-navicon',
+                tap: function (e) {
+                    $scope.sideMenuController.toggleLeft();
+                }
             }
-        }];
+        ];
 
         $scope.rightButtons = [];
     })
@@ -78,12 +85,14 @@ angular.module('green-streak.controllers', ['LocalStorageModule'])
     .controller('ThreeController', function ($scope) {
         $scope.navTitle = "Page Three Title";
 
-        $scope.leftButtons = [{
-            type: 'button-icon icon ion-navicon',
-            tap: function(e) {
-                $scope.sideMenuController.toggleLeft();
+        $scope.leftButtons = [
+            {
+                type: 'button-icon icon ion-navicon',
+                tap: function (e) {
+                    $scope.sideMenuController.toggleLeft();
+                }
             }
-        }];
+        ];
 
         $scope.rightButtons = [];
     });

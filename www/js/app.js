@@ -12,7 +12,7 @@ greenStreakApp.config(function ($compileProvider) {
 })
 
 greenStreakApp.config(['$httpProvider', function($httpProvider) {
-    $httpProvider.defaults.withCredentials = true;
+//    $httpProvider.defaults.withCredentials = true;
 }])
 
 greenStreakApp.config(['$stateProvider', '$urlRouterProvider',
@@ -38,10 +38,10 @@ greenStreakApp.config(['$stateProvider', '$urlRouterProvider',
             controller: 'OneController',
             templateUrl: 'templates/one.html'
         })
-        .state('two', {
-            url: '/two',
-            controller: 'TwoController',
-            templateUrl: 'templates/two.html'
+        .state('square', {
+            url: '/square',
+            controller: 'SquareController',
+            templateUrl: 'templates/square.html'
         })
         .state('three', {
             url: '/three',
