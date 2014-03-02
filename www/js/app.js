@@ -23,10 +23,10 @@ greenStreakApp.config(['$stateProvider', '$urlRouterProvider',
     // Each state's controller can be found in controllers.js
     $stateProvider
 
-        .state('authenticate', {
-            url: '/authenticate',
+        .state('search', {
+            url: '/search',
             controller: 'IndexController',
-            templateUrl: 'templates/authenticate.html'
+            templateUrl: 'templates/search.html'
         })
         .state('callback', {
             url: '/callback',
@@ -50,6 +50,6 @@ greenStreakApp.config(['$stateProvider', '$urlRouterProvider',
         });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/authenticate');
+    $urlRouterProvider.otherwise('/search');
     }
 ])

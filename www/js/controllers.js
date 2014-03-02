@@ -18,7 +18,12 @@ angular.module('green-streak.controllers', ['LocalStorageModule'])
 //        {
 //            $state.go('one');
 //        }
-        $scope.navTitle = "Authenticate";
+        $scope.navTitle = "Green Streak";
+        $scope.user = {userName: ''};
+
+        $scope.search = function () {
+            console.log("Searching for contributions for userName: " + $scope.user.userName)
+        };
 
         $scope.leftButtons = [
             {
