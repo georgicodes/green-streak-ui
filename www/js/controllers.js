@@ -22,7 +22,9 @@ angular.module('green-streak.controllers', ['LocalStorageModule'])
         $scope.user = {userName: ''};
 
         $scope.search = function () {
-            console.log("Searching for contributions for userName: " + $scope.user.userName)
+            console.log("Searching for userName: " + $scope.user.userName)
+            localStorageService.set("userName", $scope.user.userName);
+            $state.go('square');
         };
 
         $scope.leftButtons = [
@@ -72,8 +74,10 @@ angular.module('green-streak.controllers', ['LocalStorageModule'])
         $scope.rightButtons = [];
     })
 
-    .controller('SquareController', function ($scope) {
+    .controller('SquareController', function ($scope, ContributionsService, localStorageService) {
         $scope.navTitle = "Daily Contribution";
+
+        $scope.contributionData = ContributionsService.list({'userId': localStorageService.get("userName")});
 
         $scope.leftButtons = [
             {

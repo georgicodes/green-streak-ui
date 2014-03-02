@@ -1,5 +1,4 @@
 angular.module('green-streak.services', ['ngResource', 'green-streak.configuration'])
-
 /**
  * A simple example service that returns some data.
  */
@@ -29,6 +28,19 @@ angular.module('green-streak.services', ['ngResource', 'green-streak.configurati
     .factory('LanguageCountService', function ($resource, API_END_POINT) {
         return $resource(
             API_END_POINT + "/languages"
+        );
+    })
+
+    .factory('ContributionsService', function ($resource, API_END_POINT) {
+        return $resource(
+            API_END_POINT + "/contributions/:userId",
+            {userId: "@userId"},
+            {
+                list: {
+                    method: 'GET',
+                    isArray: true
+                }
+            }
         );
     })
 

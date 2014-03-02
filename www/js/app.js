@@ -11,9 +11,14 @@ greenStreakApp.config(function ($compileProvider) {
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
 })
 
+//greenStreakApp.config(['$httpProvider', function($httpProvider) {
+////    $httpProvider.defaults.withCredentials = true;
+//}])
 greenStreakApp.config(['$httpProvider', function($httpProvider) {
-//    $httpProvider.defaults.withCredentials = true;
-}])
+    $httpProvider.defaults.useXDomain = true;
+    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+}
+]);
 
 greenStreakApp.config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
