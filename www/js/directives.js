@@ -227,14 +227,14 @@ angular.module('green-streak.directives', ['d3'])
 
                 // define render function
                 scope.render = function (data) {
-                    console.log(data)
+
                     var countLength = data.length
                     var latestCount = data[countLength - 1]
                     var maxCounts = d3.max(data)
 
                     // remove all previous items before render
-                    svg.selectAll("*").remove();
                     //Draw the Rectangle
+                    if(maxCounts) {
                     svg.append("rect")
                         .attr("fill", function (d) {
                             tmp = ((colorNum - 1) * latestCount / maxCounts)
@@ -256,6 +256,7 @@ angular.module('green-streak.directives', ['d3'])
                         .attr("y", bufferHeight)
                         .attr("width", drawSize)
                         .attr("height", drawSize);
+                    }
                 };
             }
         };
