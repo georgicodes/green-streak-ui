@@ -216,12 +216,10 @@ angular.module('green-streak.directives', ['d3'])
                 var bufferWidth = (deviceWidth - drawSize)/2;
                 var bufferHeight = (deviceHeight - drawSize)/2;
                 var date = [1, 2, 3, 4, 5, 6]
-                var count = [0, 5, 13, 2, 6, 7]
+//                var count = [0, 5, 13, 2, 6, 7]
                 var colorList = ["#eeeeee", "#d6e685", "#8cc665", "#44a340", "#1e6823" , "#44a340"]
                 var colorNum = 5
-                var countLength = count.length
-                var latestCount = count[countLength - 1]
-                var maxCounts = d3.max(count)
+
                 //Make an SVG Container
                 var svg = d3.select(iElement[0])
                     .append("svg")
@@ -229,6 +227,11 @@ angular.module('green-streak.directives', ['d3'])
                     .attr("height", deviceHeight);
                 // define render function
                 scope.render = function (data) {
+                    console.log(data)
+                    var countLength = data.length
+                    var latestCount = data[countLength - 1]
+                    var maxCounts = d3.max(data)
+
                     // remove all previous items before render
                     //svg.selectAll("*").remove();
                     //Draw the Rectangle
