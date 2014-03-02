@@ -15,4 +15,3 @@ platforms/android
 
 *.keystore
 *.sw*
-platforms/^.*
