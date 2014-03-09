@@ -11,6 +11,21 @@ angular.module('green-streak.controllers', ['LocalStorageModule'])
         };
     })
 
+    .controller('AuthController', function ($scope, $ionicPlatform, $state, localStorageService) {
+
+        $scope.leftButtons = [
+            {
+                type: 'button-icon icon ion-navicon',
+                tap: function (e) {
+                    $scope.sideMenuController.toggleLeft();
+                }
+            }
+        ];
+
+        $scope.rightButtons = [];
+
+    })
+
     .controller('IndexController', function ($scope, $ionicPlatform, $state, localStorageService) {
 
 //        var authenticated = localStorageService.get('authenticated');
@@ -79,7 +94,7 @@ angular.module('green-streak.controllers', ['LocalStorageModule'])
 
         $scope.contributionData = ContributionsService.list({'userId': localStorageService.get("userName")}, function (success) {
             var result = [];
-            for (var i =0; i<success.length; i++) {
+            for (var i = 0; i < success.length; i++) {
                 result.push(success[i][1]);
             }
             console.log("returning results")
@@ -87,7 +102,7 @@ angular.module('green-streak.controllers', ['LocalStorageModule'])
         });
 
         $scope.deviceWidth = window.innerWidth || document.body.clientWidth;
-        $scope.deviceHeight= window.innerHeight || document.body.clientHeight;
+        $scope.deviceHeight = window.innerHeight || document.body.clientHeight;
 
         $scope.leftButtons = [
             {

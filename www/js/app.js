@@ -11,14 +11,14 @@ greenStreakApp.config(function ($compileProvider) {
     $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|file|tel):/);
 })
 
-//greenStreakApp.config(['$httpProvider', function($httpProvider) {
-////    $httpProvider.defaults.withCredentials = true;
-//}])
 greenStreakApp.config(['$httpProvider', function($httpProvider) {
-    $httpProvider.defaults.useXDomain = true;
-    delete $httpProvider.defaults.headers.common['X-Requested-With'];
-}
-]);
+    $httpProvider.defaults.withCredentials = true;
+}])
+//greenStreakApp.config(['$httpProvider', function($httpProvider) {
+//    $httpProvider.defaults.useXDomain = true;
+//    delete $httpProvider.defaults.headers.common['X-Requested-With'];
+//}
+//]);
 
 greenStreakApp.config(['$stateProvider', '$urlRouterProvider',
     function($stateProvider, $urlRouterProvider) {
@@ -52,9 +52,14 @@ greenStreakApp.config(['$stateProvider', '$urlRouterProvider',
             url: '/three',
             controller: 'ThreeController',
             templateUrl: 'templates/three.html'
+        })
+        .state('authenticate', {
+            url: '/authenticate',
+            controller: 'AuthController',
+            templateUrl: 'templates/authenticate.html'
         });
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/search');
+    $urlRouterProvider.otherwise('/authenticate');
     }
 ])
