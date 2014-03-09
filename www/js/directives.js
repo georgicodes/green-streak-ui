@@ -94,29 +94,33 @@ angular.module('green-streak.directives', ['d3'])
                 onClick: "&"
             },
             link: function (scope, iElement, iAttrs) {
-                var width = 400,
-                    height = 200,
-                    radius = Math.min(width, height) / 2,
+                var width = 1000,
+                    height = 500,
+                    topMargin = 30,
+                    radius = Math.min(width, height - topMargin) / 2,
                     labelRadius = 150,
                     transitionTime = 2000;
 
                 var color = d3.scale.category20();
 
+                var end = new Date(2014, 2, 10, 23, 59, 59)
+
                 var arc = d3.svg.arc()
-                    .outerRadius(radius - 10);
+                    .outerRadius(radius - topMargin);
 
                 var pie = d3.layout.pie()
-                    .sort(null)
-                    .value(function (d) {
-                        return d.count;
-                    });
+                                   .sort(null)
+                                   .value(function(d) { return d.count; });
 
-                var svg = d3.select(iElement[0])
-                    .append("svg")
-                    .attr("width", width)
-                    .attr("height", height)
-                    .append("g")
-                    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+                var svg = d3.select(iElement[0]).append("svg")
+                           .attr("width", width)
+                           .attr("height", height)
+                           .append("g")
+                           .attr("transform", "translate(" + width / 2 + "," + (height) / 2  + ")");  
+
+                var countdown = d3.select(iElement[0]).append("svg")
+                                                      .attr("width", width)
+                                                      .attr("height", 500); 
 
                 // on window resize, re-render d3 canvas
                 window.onresize = function () {
@@ -139,41 +143,71 @@ angular.module('green-streak.directives', ['d3'])
                     // remove all previous items before render
                     //svg.selectAll("*").remove();
 
-                    data.forEach(function (d) {
-                        d.count = +d.count;
-                    });
+                countdown.append("text").attr("class", "title")
+                        .attr("class", "countdown")
+                        .attr("x", width/2)             
+                        .attr("y", 50)
+                        .attr("text-anchor", "middle");
 
-                    var g = svg.selectAll(".arc")
-                        .data(pie(data))
-                        .enter().append("g")
-                        .attr("class", "arc");
+                setInterval(function() {
+                      var now = new Date()
+                      dd = d3.format("02d")
+                      var remainingTime = parseInt(((new Date(+end - +now))/1000),10)
+                      var remainingHours = parseInt(remainingTime/3600,10)
+                      var remainingMinutes = parseInt((remainingTime - remainingHours*3600)/60,10)
+                      var remainingSeconds = parseInt(remainingTime - remainingHours*3600 - remainingMinutes*60,10)
+                      countdown.selectAll("text").attr("class", "title")
+                                                 .attr("class", "countdown")
+                                                 .attr("x", width/2)             
+                                                 .attr("y", 50)
+                                                 .attr("text-anchor", "middle") 
+                                                 .text(dd(remainingHours) + ':' + dd(remainingMinutes) + ':' + dd(remainingSeconds));
+                    }, 1000);
 
-                    g.append("path")
-                        .attr("d", arc)
-                        .style("fill", function (d) {
-                            return color(d.data.name);
-                        })
-                        .transition()
-                        .ease("bounce")
-                        .duration(transitionTime)
-                        .attrTween("d", tweenPie);
+                data.forEach(function(d) {
+                  d.count = +d.count;
+                });
 
-                    g.append("text")
-                        .attr("transform", function (d) {
-                            return "translate(" +
-                                ( (labelRadius - 12) * Math.sin(((d.endAngle - d.startAngle) / 2) + d.startAngle) ) +
-                                ", " +
-                                ( -1 * (labelRadius - 12) * Math.cos(((d.endAngle - d.startAngle) / 2) + d.startAngle) ) + ")";
-                        })
-                        .style("text-anchor", "middle")
-                        .text(function (d) {
-                            return d.data.name;
-                        })
-                        .attr("font-size", "14px")
-                        .style("opacity", 0)
-                        .transition()
-                        .duration(transitionTime)
-                        .style("opacity", 1);
+                var g = svg.selectAll(".arc")
+                          .data(pie(data))
+                          .enter().append("g")
+                          .attr("class", "arc");
+
+                g.append("path")
+                  .attr("d", arc)
+                  .style("fill", function(d) { return color(d.data.name); })
+                  .transition()
+                  .ease("bounce")
+                  .duration(transitionTime)
+                  .attrTween("d", tweenPie);
+
+                var legend = svg.append("g")
+                                .attr("class", "legend")
+                                .attr("transform","translate(300,-250)")
+                                .selectAll("g")
+                                .data(color.domain().slice().reverse())
+                                .enter().append("g")
+                                .attr("transform", function(d, i) { return "translate(0," + i * 30 + ")"; });
+
+                legend.append("rect")
+                      .attr("width", 24)
+                      .attr("height", 24)
+                      .style("fill", color)
+                      .style("opacity", 0)
+                      .transition()
+                      .duration(2*transitionTime)
+                      .style("opacity", 1);
+
+                legend.append("text")
+                      .attr("class", "body")
+                      .attr("x", 28)
+                      .attr("y", 11)
+                      .attr("dy", ".4em")
+                      .text(function(d) { return d; })
+                      .style("opacity", 0)
+                      .transition()
+                      .duration(2*transitionTime)
+                      .style("opacity", 1);
 
                     function tweenPie(b) {
                         var i = d3.interpolate({startAngle: 0, endAngle: 0}, b);
